@@ -14,7 +14,7 @@ const displayPhones = (phones) => {
     console.log(phone);
     // 1 create a div
     const phoneCard = document.createElement("div");
-    phoneCard.classList = `card card-compact w-96 bg-gray-300 shadow-xl`;
+    phoneCard.classList = `card card-compact w-full m-3 bg-gray-100 shadow-xl`;
     phoneCard.innerHTML = `
       <figure>
         <img
@@ -23,10 +23,10 @@ const displayPhones = (phones) => {
         />
       </figure>
       <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 class="card-title">${phone.phone_name}</h2>
+        <p>${phone.slug}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
+          <button class="btn btn-primary">Details</button>
         </div>
       </div>
     `;
