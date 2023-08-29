@@ -12,6 +12,16 @@ const displayPhones = (phones) => {
   const phoneContainer = document.getElementById("phone-container");
   // clear phone container card before adding new cards
   phoneContainer.textContent = "";
+  // display only first 12 phone
+  // display show all button if there are 12 phone
+  const showAll = document.getElementById("show-all");
+  if (phones.length > 12) {
+    showAll.classList.remove("hidden");
+  } else {
+    showAll.classList.add("hidden");
+  }
+
+  phones = phones.slice(0, 12);
   phones.forEach((phone) => {
     console.log(phone);
     // 1 create a div
