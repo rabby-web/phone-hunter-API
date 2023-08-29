@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText = "13", isShowAll) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
@@ -26,7 +26,7 @@ const displayPhones = (phones, isShowAll) => {
   }
 
   phones.forEach((phone) => {
-    console.log(phone);
+    // console.log(phone);
     // 1 create a div
     const phoneCard = document.createElement("div");
     phoneCard.classList = `card card-compact w-full m-3 p-2 bg-gray-100 shadow-xl`;
@@ -40,8 +40,8 @@ const displayPhones = (phones, isShowAll) => {
       <div class="card-body">
         <h2 class="card-title">${phone.phone_name}</h2>
         <p>${phone.slug}</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Details</button>
+        <div class="card-actions justify-center">
+          <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-primary">Details</button>
         </div>
       </div>
     `;
@@ -50,6 +50,37 @@ const displayPhones = (phones, isShowAll) => {
   // hide loading spinner
   toggleLoadingSpinner(false);
 };
+// show details
+const handleShowDetail = async (id) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/phone/${id}`
+  );
+  const data = await res.json();
+  const phone = data.data;
+  showPhoneDetails(phone);
+};
+const showPhoneDetails = (phone) => {
+  console.log(phone);
+  const phoneName = document.getElementById("phone-name");
+  phoneName.innerText = phone.name;
+
+  const showDetailsContainer = document.getElementById(
+    "show-details-container"
+  );
+  showDetailsContainer.innerHTML = `
+  <div class="bg-gray-300 rounded-lg">
+  <img class="w--1/2 mx-auto p-3 " src="${phone.image}" alt=""/></div>
+  <p class="p-1 text-lg font-semibold"><span>Brand:</span>${phone?.brand}</p>
+  <p class="p-1 text-lg"><span>Storage:</span>${phone?.mainFeatures.storage}</p>
+  <p class="p-1 text-lg"><span>Memory
+  :</span>${phone?.mainFeatures.memory}</p>
+  <p class="p-1 text-lg"><span>Display
+  :</span>${phone?.mainFeatures.displaySize}</p>
+  `;
+
+  show_details_modal.showModal();
+};
+
 // handle search button
 const handleSearch = (isShowAll) => {
   toggleLoadingSpinner(true);
@@ -72,4 +103,4 @@ const toggleLoadingSpinner = (isLoading) => {
 const handleShowAll = () => {
   handleSearch(true);
 };
-// loadPhone();
+loadPhone();
