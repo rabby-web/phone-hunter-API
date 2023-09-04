@@ -83,6 +83,7 @@ const showPhoneDetails = (phone) => {
 
 // handle search button
 const handleSearch = (isShowAll) => {
+  // console.count("count", handleSearch);
   toggleLoadingSpinner(true);
   const searchField = document.getElementById("search-field");
   const searchFieldText = searchField.value;
